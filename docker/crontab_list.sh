@@ -95,4 +95,4 @@
 # 领金贴
 5 0 * * * node /scripts/jd_jin_tie.js >> /scripts/logs/jd_jin_tie.log 2>&1
 #送豆得豆
-15 2,14,22 * * * node /scripts/Andy_sendBeans.js
+15 2,14,22 * * * node /scripts/Andy_sendBeans.js >> /scripts/logs/Andy_sendBeans.js.log 2>&1
