@@ -50,8 +50,6 @@
 32 0-23/6 * * * node /scripts/jd_pigPet.js >> /scripts/logs/jd_pigPet.log 2>&1
 # 京喜工厂
 50 * * * * node /scripts/jd_dreamFactory.js >> /scripts/logs/jd_dreamFactory.log 2>&1
-# 点点券
-5 0,20 * * * node /scripts/jd_necklace.js >> /scripts/logs/jd_necklace.js.log 2>&1
 # 东东工厂
 26 * * * * node /scripts/jd_jdfactory.js >> /scripts/logs/jd_jdfactory.log 2>&1
 # 赚京豆(微信小程序)
@@ -96,3 +94,5 @@
 5 0 * * * node /scripts/jd_jin_tie.js >> /scripts/logs/jd_jin_tie.log 2>&1
 #送豆得豆
 15 2,14,22 * * * node /scripts/jd_Andy_sendBeans.js >> /scripts/logs/jd_Andy_sendBeans.js 2>&1
+# 点点券
+5 0,20 * * * node /scripts/jd_necklace.js >> /scripts/logs/jd_necklace.js.log 2>&1
