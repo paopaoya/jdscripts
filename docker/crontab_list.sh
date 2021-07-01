@@ -119,6 +119,6 @@
 # 宠汪汪
 6 */2,9 * * * node /scripts/jd_joy.js >> /scripts/logs/jd_joy.log 2>&1
 # 宠汪汪积分兑换京豆.验证码
-58,59 23,7,15 * * * node /jd_task_validate.js >> /scripts/logs/jd_task_validate.log 2>&1
+58,59 23,7,15 * * * node /scripts/jd_task_validate.js >> /scripts/logs/jd_task_validate.log 2>&1
 # 宠汪汪积分兑换京豆.
 0,1 */8 * * * node /scripts/jd_reward_joy.js >> /scripts/logs/jd_reward_joy.log 2>&1
