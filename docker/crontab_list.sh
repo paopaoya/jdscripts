@@ -12,6 +12,12 @@
 0 1,22 * * * node /scripts/jd_gold_creator.js >> /scripts/logs/jd_gold_creator.log 2>&1
 #5G超级盲盒(活动时间：2021-06-2到2021-07-31)
 0 0-23/4 * * * node /scripts/jd_mohe.js >> /scripts/logs/jd_mohe.log 2>&1
+#星系牧场 #wen
+1 0-23/2 * * * node /scripts/jd_qqxing.js >> /scripts/logs/jd_qqxing.log 2>&1
+#欧洲狂欢杯 活动时间：###
+1 10,15 * * * node /scripts/jd_europeancup.js >> /scripts/logs/jd_europeancup.log 2>&1
+#女装盲盒 活动时间：2021-05-24到2021-06-22
+35 1,22 * * * node /scripts/jd_nzmh.js >> /scripts/logs/jd_nzmh.log 2>&1
 
 ##############长期活动##############
 # 签到
@@ -48,6 +54,8 @@
 28 * * * * node /scripts/jd_daily_egg.js >> /scripts/logs/jd_daily_egg.log 2>&1
 # 金融养猪
 32 0-23/6 * * * node /scripts/jd_pigPet.js >> /scripts/logs/jd_pigPet.log 2>&1
+# 口袋书店
+23 8,12,18 * * * node /scripts/jd_bookshop.js >> /scripts/logs/jd_bookshop.log 2>&1
 # 京喜工厂
 50 * * * * node /scripts/jd_dreamFactory.js >> /scripts/logs/jd_dreamFactory.log 2>&1
 # 东东工厂
@@ -64,6 +72,8 @@
 6 0-5/1,11 * * * node /scripts/jd_jdzz.js >> /scripts/logs/jd_jdzz.log 2>&1
 # 京喜农场
 30 9,12,18 * * * node /scripts/jd_jxnc.js >> /scripts/logs/jd_jxnc.log 2>&1
+#京喜牧场
+40 6-21/3 * * * node /scripts/jd_jxmc.js >> /scripts/logs/jd_jxmc.log 2>&1
 # 签到领现金
 10 */4 * * * node /scripts/jd_cash.js >> /scripts/logs/jd_cash.log 2>&1
 # 闪购盲盒
@@ -81,7 +91,7 @@
 # 删除优惠券(默认注释，如需要自己开启，如有误删，已删除的券可以在回收站中还原，慎用)
 #20 9 * * 6 node /scripts/jd_delCoupon.js >> /scripts/logs/jd_delCoupon.log 2>&1
 #家庭号
-10 6,7 * * * node /scripts/jd_family.js >> /scripts/logs/jd_family.log 2>&1
+#10 6,7 * * * node /scripts/jd_family.js >> /scripts/logs/jd_family.log 2>&1
 #京东直播（又回来了）
 30-50/5 12,23 * * * node /scripts/jd_live.js >> /scripts/logs/jd_live.log 2>&1
 #京东健康社区
@@ -96,3 +106,13 @@
 15 2,14,22 * * * node /scripts/jd_Andy_sendBeans.js >> /scripts/logs/jd_Andy_sendBeans.js 2>&1
 # 点点券
 5 0,20 * * * node /scripts/jd_necklace.js >> /scripts/logs/jd_necklace.js.log 2>&1
+# 京东试用
+#16 10 * * * node /scripts/jd_try.js >> /scripts/logs/jd_try.log 2>&1
+#东东乐园
+26 8 * * * node /scripts/jd_ddnc_farmpark.js >> /scripts/logs/jd_ddnc_farmpark.log 2>&1
+#财富岛抽奖
+39 0 * * * node /scripts/jd_jxcfd_lottery >> /scripts/logs/jd_jxcfd_lottery 2>&1
+#电竞经理
+39 9 * * * node /scripts/jd_zooElecsport >> /scripts/logs/jd_zooElecsport 2>&1
+#京东金融分分币
+15 9 * * * node /scripts/jd_fq >> /scripts/logs/jd_fq 2>&1
