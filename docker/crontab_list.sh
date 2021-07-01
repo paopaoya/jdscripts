@@ -111,8 +111,14 @@
 #东东乐园
 26 8 * * * node /scripts/jd_ddnc_farmpark.js >> /scripts/logs/jd_ddnc_farmpark.log 2>&1
 #财富岛抽奖
-39 0 * * * node /scripts/jd_jxcfd_lottery >> /scripts/logs/jd_jxcfd_lottery 2>&1
+39 0 * * * node /scripts/jd_jxcfd_lottery.js >> /scripts/logs/jd_jxcfd_lottery.log 2>&1
 #电竞经理
-39 9 * * * node /scripts/jd_zooElecsport >> /scripts/logs/jd_zooElecsport 2>&1
+39 9 * * * node /scripts/jd_zooElecsport.js >> /scripts/logs/jd_zooElecsport.log 2>&1
 #京东金融分分币
-15 9 * * * node /scripts/jd_fq >> /scripts/logs/jd_fq 2>&1
+15 9 * * * node /scripts/jd_fq.js >> /scripts/logs/jd_fq.log 2>&1
+# 宠汪汪
+6 */2,9 * * * node /scripts/jd_joy.js >> /scripts/logs/jd_joy.log 2>&1
+# 宠汪汪积分兑换京豆.验证码
+58,59 23,7,15 * * * node /jd_task_validate.js >> /scripts/logs/jd_task_validate.log 2>&1
+# 宠汪汪积分兑换京豆.
+0,1 */8 * * * node /scripts/jd_reward_joy.js >> /scripts/logs/jd_reward_joy.log 2>&1
