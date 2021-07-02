@@ -106,8 +106,6 @@
 5 0 * * * node /scripts/jd_jin_tie.js >> /scripts/logs/jd_jin_tie.log 2>&1
 #送豆得豆
 15 2,14,22 * * * node /scripts/jd_Andy_sendBeans.js >> /scripts/logs/jd_Andy_sendBeans.js 2>&1
-# 点点券
-5 0,20 * * * node /scripts/jd_necklace.js >> /scripts/logs/jd_necklace.js.log 2>&1
 # 京东试用
 #16 10 * * * node /scripts/jd_try.js >> /scripts/logs/jd_try.log 2>&1
 #东东乐园
