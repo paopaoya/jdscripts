@@ -22,7 +22,7 @@ cron "13 1,22,23 * * *" script-path=https://gitee.com/lxk0301/jd_scripts/raw/mas
 const $ = new Env('小鸽有礼-每日抽奖');
 const notify = $.isNode() ? require('./sendNotify') : '';
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
-const activityCode = '1384416160044290048';
+const activityCode = '1410048365793640448';
 $.helpCodeList = [];
 //IOS等用户直接用NobyDa的jd cookie
 let cookiesArr = [], cookie = '';
