@@ -12,10 +12,6 @@
 0 1,22 * * * node /scripts/jd_gold_creator.js >> /scripts/logs/jd_gold_creator.log 2>&1
 #5G超级盲盒(活动时间：2021-06-2到2021-07-31)
 0 0-23/4 * * * node /scripts/jd_mohe.js >> /scripts/logs/jd_mohe.log 2>&1
-#星系牧场 #wen
-1 0-23/2 * * * node /scripts/jd_qqxing.js >> /scripts/logs/jd_qqxing.log 2>&1
-#欧洲狂欢杯 活动时间：###
-1 10,15 * * * node /scripts/jd_europeancup.js >> /scripts/logs/jd_europeancup.log 2>&1
 #女装盲盒 活动时间：2021-05-24到2021-06-22
 35 1,22 * * * node /scripts/jd_nzmh.js >> /scripts/logs/jd_nzmh.log 2>&1
 #京东零食街 活动时间：###
