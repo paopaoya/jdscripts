@@ -128,3 +128,5 @@
 1 0 * * * node /scripts/jd_zjb.js >> /scripts/logs/jd_zjb.log 2>&1
 # 极速版农场我是大老板
 15 0-23/6 * * * node /scripts/jd_wsdlb.js >> /scripts/logs/jd_wsdlb.log 2>&1
+# 券后9.9天天大乐透
+15 0-23/6 * * * node /scripts/jd_DrawEntrance.js >> /scripts/logs/jd_DrawEntrance.log 2>&1
