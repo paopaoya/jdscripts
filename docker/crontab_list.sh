@@ -122,3 +122,9 @@
 58,59 23,7,15 * * * node /scripts/jd_task_validate.js >> /scripts/logs/jd_task_validate.log 2>&1
 # 宠汪汪积分兑换京豆.
 0,1 */8 * * * node /scripts/jd_reward_joy.js >> /scripts/logs/jd_reward_joy.log 2>&1
+# 宠汪汪20兑换
+0 16 * * * node /scripts/jd_akreward.js >> /scripts/logs/jd_akreward.log 2>&1
+# 极速版柠檬赚金币改
+1 0 * * * node /scripts/jd_zjb.js >> /scripts/logs/jd_zjb.log 2>&1
+# 极速版农场我是大老板
+15 0-23/6 * * * node /scripts/jd_wsdlb.js >> /scripts/logs/jd_wsdlb.log 2>&1
