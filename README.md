@@ -8,4 +8,4 @@ cd scripts
 
 npm install canvas --build-from-source
 
-npm install 
+npm install png-js
