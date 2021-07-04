@@ -14,10 +14,10 @@ const $ = new Env('QQ星系牧场');
 //Node.js用户请在jdCookie.js处填写京东ck;
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 const randomCount = $.isNode() ? 20 : 5;
-const notify = $.isNode() ? require('./sendNotify') : '';
+//const notify = $.isNode() ? require('./sendNotify') : '';
 let merge = {}
 let codeList = []
-Exchange = true;
+Exchange = $.isNode() ? (process.env.Cowexchange ? process.env.Cowexchange : false) : ($.getdata("Cowexchange") ? $.getdata("Cowexchange") : false);
 //IOS等用户直接用NobyDa的jd cookie
 let cookiesArr = [],
     cookie = '';
@@ -109,7 +109,7 @@ $.shareuuid = "cb1f5a0c86ea4398be56246f787f4738"
                 }
             }
         }
-        if (message.length != 0) {
+        if (message.length != 0&&new Date().getHours() == 11) {
         if ($.isNode()) {
            await notify.sendNotify("星系牧场", `${message}\n牧场入口：QQ星儿童牛奶京东自营旗舰店->星系牧场\n\n吹水群：https://t.me/wenmouxx`);
    }  else {
@@ -187,10 +187,8 @@ function genToken() {
                     console.log(`${JSON.stringify(err)}`)
                 } else {
                     data = JSON.parse(data);
-                    // console.log(data, 'data')
                     $.isvToken = data['tokenKey']
                     cookie += `IsvToken=${data['tokenKey']}`
-                    //   console.log($.isvToken)
                 }
             } catch (e) {
                 $.logErr(e, resp)
