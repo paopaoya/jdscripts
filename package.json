@@ -13,10 +13,12 @@
   "keywords": [
     "京东薅羊毛工具, 京东水果、宠物、种豆等等"
   ],
-  "author": "LXK9301",
+  "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.21.1",
     "crypto-js": "^4.0.0",
+    "date-fns": "^2.22.1",
     "download": "^8.0.0",
     "got": "^11.5.1",
     "http-server": "^0.12.3",
