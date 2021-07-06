@@ -144,3 +144,5 @@
 9 0,20 * * * node /scripts/jd_necklace.js >> /scripts/logs/jd_necklace.log 2>&1
 # 图形验证签到
 9 0,8 * * * node /scripts/jd_sign.js >> /scripts/logs/jd_sign.log 2>&1
+# 旺旺乐园
+9 */4 * * * node /scripts/jd_joy_park.js >> /scripts/logs/jd_joy_park.log 2>&1
