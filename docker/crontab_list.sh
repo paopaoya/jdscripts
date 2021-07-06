@@ -117,7 +117,13 @@
 #京东金融分分币
 15 9 * * * node /scripts/jd_fq.js >> /scripts/logs/jd_fq.log 2>&1
 # 宠汪汪
-6 */2,9 * * * node /scripts/jd_joy.js >> /scripts/logs/jd_joy.log 2>&1
+6 */2,23 * * * node /scripts/jd_joy.js >> /scripts/logs/jd_joy.log 2>&1
+# 宠汪汪赛跑与邀请助力
+1 9-13/2 * * * node /scripts/jd_joy_run.js >> /scripts/logs/jd_joy_run.log 2>&1
+# 宠汪汪喂食
+15 0-23/1 * * * node /scripts/jd_joy_feedPets.js >> /scripts/logs/jd_joy_feedPets.log 2>&1
+# 宠汪汪偷好友积分与狗粮
+13 0-21/3 * * * node /scripts/jd_joy_steal.js >> /scripts/logs/jd_joy_steal.log 2>&1
 # 宠汪汪积分兑换京豆.验证码
 58,59 23,7,15 * * * node /scripts/jd_task_validate.js >> /scripts/logs/jd_task_validate.log 2>&1
 # 宠汪汪积分兑换京豆.
