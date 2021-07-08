@@ -20,6 +20,8 @@
 1 10,13 * * * node /scripts/jd_europeancup.js >> /scripts/logs/jd_europeancup.log 2>&1
 #星系牧场 #wen
 1 */2 * * * node /scripts/jd_qqxing.js >> /scripts/logs/jd_qqxing.log 2>&1
+#京享值PK
+15 2,5,12,18,20 * * * node /scripts/jd_jxzpk.js >> /scripts/logs/jd_jxzpk.log 2>&1
 
 ##############长期活动##############
 # 签到
@@ -144,7 +146,9 @@
 9 0,20 * * * node /scripts/jd_necklace.js >> /scripts/logs/jd_necklace.log 2>&1
 # 图形验证签到
 9 0,8 * * * node /scripts/jd_sign.js >> /scripts/logs/jd_sign.log 2>&1
-# 旺旺乐园
-9 */4 * * * node /scripts/jd_joy_park.js >> /scripts/logs/jd_joy_park.log 2>&1
+# 旺旺乐园合成
+9 0-23/3 * * * node /scripts/jd_joypark_joy.js >> /scripts/logs/jd_joypark_joy.log 2>&1
+# 旺旺乐园每日任务
+20 7,9,17,20 * * * node /scripts/jd_joypark_task.js >> /scripts/logs/jd_joypark_task.log 2>&1
 # 超级粉丝互动
 9 17 * * * node /scripts/jd_wxFans.js >> /scripts/logs/jd_wxFans.log 2>&1
