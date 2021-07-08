@@ -10,7 +10,7 @@
 20 * * * *  https://raw.githubusercontent.com/jiulan/platypus/main/scripts/jd_joy_park.js, tag=汪汪乐园, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png, enabled=true
 =================================Loon===================================
 [Script]
-cron "20 */4 * * *" script-path=https://raw.githubusercontent.com/jiulan/platypus/main/scripts/jd_joy_park.js,tag=汪汪乐园
+cron "20 * * * *" script-path=https://raw.githubusercontent.com/jiulan/platypus/main/scripts/jd_joy_park.js,tag=汪汪乐园
 ===================================Surge================================
 汪汪乐园 = type=cron,cronexp="20 * * * *",wake-system=1,timeout=3600,script-path=https://raw.githubusercontent.com/jiulan/platypus/main/scripts/jd_joy_park.js
 ====================================小火箭=============================
