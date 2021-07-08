@@ -8,4 +8,4 @@ cd scripts
 
 npm install canvas --build-from-source
 
-npm install png-js
+搬运大佬脚本，自用
