@@ -146,3 +146,5 @@
 9 0,8 * * * node /scripts/jd_sign.js >> /scripts/logs/jd_sign.log 2>&1
 # 旺旺乐园
 9 */4 * * * node /scripts/jd_joy_park.js >> /scripts/logs/jd_joy_park.log 2>&1
+# 超级粉丝互动
+9 17 * * * node /scripts/jd_wxFans.js >> /scripts/logs/jd_wxFans.log 2>&1
