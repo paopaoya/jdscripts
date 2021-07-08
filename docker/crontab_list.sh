@@ -22,6 +22,8 @@
 1 */2 * * * node /scripts/jd_qqxing.js >> /scripts/logs/jd_qqxing.log 2>&1
 #京享值PK
 15 2,5,12,18,20 * * * node /scripts/jd_jxzpk.js >> /scripts/logs/jd_jxzpk.log 2>&1
+#海尔
+2 8 5-11 7 * node /scripts/jd_khyl.js >> /scripts/logs/jd_khyl.log 2>&1
 
 ##############长期活动##############
 # 签到
