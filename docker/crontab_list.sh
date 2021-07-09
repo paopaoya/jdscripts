@@ -24,6 +24,8 @@
 15 2,5,12,18,20 * * * node /scripts/jd_jxzpk.js >> /scripts/logs/jd_jxzpk.log 2>&1
 #海尔
 2 8 5-11 7 * node /scripts/jd_khyl.js >> /scripts/logs/jd_khyl.log 2>&1
+#柠檬众筹许愿池
+0 8,12 * * * node /scripts/jd_wish.js >> /scripts/logs/jd_wish.log 2>&1
 
 ##############长期活动##############
 # 签到
