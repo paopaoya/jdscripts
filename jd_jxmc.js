@@ -60,8 +60,8 @@ if ($.isNode()) {
   }
   console.log('\n##################开始账号内互助#################\n');
   let newCookiesArr = [];
-  for(let i = 0;i<$.helpCkList.length;i+=6){
-    newCookiesArr.push($.helpCkList.slice(i,i+6))
+  for(let i = 0;i<$.helpCkList.length;i+=4){
+    newCookiesArr.push($.helpCkList.slice(i,i+4))
   }
   for (let i = 0; i < newCookiesArr.length; i++) {
     let thisCookiesArr = newCookiesArr[i];
@@ -221,7 +221,7 @@ async function pasture() {
           $.pause = false;
           console.log(`开始第${k + 1}次喂白菜`);
           await takeGetRequest('feed');
-          await $.wait(2000);
+          await $.wait(4000);
           if ($.pause) {
             await takeGetRequest('GetHomePageInfo');
             await $.wait(1000);
