@@ -118,8 +118,6 @@
 #16 10 * * * node /scripts/jd_try.js >> /scripts/logs/jd_try.log 2>&1
 #东东乐园
 26 8 * * * node /scripts/jd_ddnc_farmpark.js >> /scripts/logs/jd_ddnc_farmpark.log 2>&1
-#财富岛抽奖
-39 0 * * * node /scripts/jd_jxcfd_lottery.js >> /scripts/logs/jd_jxcfd_lottery.log 2>&1
 #电竞经理
 39 9 * * * node /scripts/jd_zooElecsport.js >> /scripts/logs/jd_zooElecsport.log 2>&1
 #京东金融分分币
