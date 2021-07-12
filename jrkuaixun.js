@@ -27,14 +27,14 @@ http-request .*read_channel\/do_read&pageshow.* script-path=https://raw.githubus
 10s阅读 = type=http-request,pattern=.*read_channel\/do_read&pageshow.*,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Wenmoux/scripts/wen/other/jrkuaixun.js,script-update-interval=0
  
 [MITM]
-hostname = m.lainiwl.top
+hostname = m.zxd03.top
  
 */
 const $ = new Env('10s阅读');
 const notify = $.isNode() ? require('./sendNotify') : '';
 const jrpush = $.isNode() ? (process.env.jrpush ? process.env.jrpush : false) :false;
 const UA = $.isNode() ? (process.env.Read10UA ? process.env.Read10UA : "Mozilla/5.0 (Linux; Android 11; Redmi K30 Build/RKQ1.200826.002; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/77.0.3865.120 MQQBrowser/6.2 TBS/045617 Mobile Safari/537.36 MMWEBID/5077 MicroMessenger/8.0.6.1900(0x2800063D) Process/tools WeChat/arm64 Weixin NetType/WIFI Language/zh_CN ABI/arm64") : ($.getdata('Read10UA') ? JSON.parse($.getdata('Read10UA')) : "Mozilla/5.0 (Linux; Android 11; Redmi K30 Build/RKQ1.200826.002; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/77.0.3865.120 MQQBrowser/6.2 TBS/045617 Mobile Safari/537.36 MMWEBID/5077 MicroMessenger/8.0.6.1900(0x2800063D) Process/tools WeChat/arm64 Weixin NetType/WIFI Language/zh_CN ABI/arm64")    
-let host = $.getdata('read10surl')?$.getdata('read10surl'):`http://m.xhh25.top`;
+let host = $.getdata('read10surl')?$.getdata('read10surl'):`http://m.56url.co`;
 let cookiesArr = [$.getdata('read10sck')]
 if ($.isNode()) {
     cookiesArr = process.env.Readck ? process.env.Readck.split("@") : []
@@ -79,7 +79,7 @@ message = ""
          }
         if ($.isNode() && jrpush) {
             if (message.length != 0) {
-                await notify.sendNotify("10s阅读", `${message}\n\n吹水群：https://t.me/wenmou_car`);
+                await notify.sendNotify("10s阅读", `${message}\n\n吹水群：https://t.me/xiubuye`);
             }
         } else {
             $.msg($.name, "", '10s阅读' + message)
