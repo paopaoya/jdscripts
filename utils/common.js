@@ -1,10 +1,11 @@
 let request = require('request');
-let crypto = require('crypto');
+let CryptoJS = require('crypto-js');
 let qs = require('querystring');
 let urls = require('url');
-let path = require('path'); 
+let path = require('path');
 let notify = require('./sendNotify');
 let eval = require("./eval");
+let assert = require('assert');
 class env {
     constructor(name) {
         this.name = name;
@@ -62,11 +63,11 @@ class env {
                 'url': params
             }
         }
-        if (params.url.match(/jd.com\/|jingxi.com\//)) {
-            // 只有访问京东链接才带cookie
-            params = Object.assign({ ...this.options
-            }, params);
-        }
+        //if (params.url.match(/jd.com\/|jingxi.com\//)) {
+        // 只有访问京东链接才带cookie
+        params = Object.assign({ ...this.options
+        }, params);
+        //}
         params.method = params.body ? 'POST' : 'GET';
         if (params.ua) {
             this.options.headers['user-agent'] = params.ua;
@@ -121,12 +122,97 @@ class env {
             'index': index
         })
     }
+    urlparse(url) {
+        return urls.parse(url, true, true)
+    }
     md5(encryptString) {
-        var md5 = crypto.createHash('md5');
-        var result = md5.update(encryptString.toString()).digest('hex');
+        return CryptoJS.MD5(encryptString).toString()
+    }
+    haskey(data, key, value) {
+        value = typeof value !== 'undefined' ? value : '';
+        var spl = key.split('.');
+        for (var i of spl) {
+            i = !isNaN(i) ? parseInt(i) : i;
+            try {
+                data = data[i];
+            } catch (error) {
+                return '';
+            }
+        }
+        if (data == undefined) {
+            return ''
+        }
+        if (value !== '') {
+            return data === value ? true : false;
+        } else {
+            return data
+        }
+    }
+    match(pattern, string) {
+        pattern = (pattern instanceof Array) ? pattern : [pattern];
+        for (let pat of pattern) {
+            // var match = string.match(pat);
+            var match = pat.exec(string)
+            if (match) {
+                var len = match.length;
+                if (len == 1) {
+                    return match;
+                } else if (len == 2) {
+                    return match[1];
+                } else {
+                    var r = [];
+                    for (let i = 1; i < len; i++) {
+                        r.push(match[i])
+                    }
+                    return r;
+                }
+                break;
+            }
+            // console.log(pat.exec(string))
+        }
+        return '';
+    }
+    matchall(pattern, string) {
+        pattern = (pattern instanceof Array) ? pattern : [pattern];
+        var match;
+        var result = [];
+        for (var pat of pattern) {
+            while ((match = pat.exec(string)) != null) {
+                var len = match.length;
+                if (len == 1) {
+                    result.push(match);
+                } else if (len == 2) {
+                    result.push(match[1]);
+                } else {
+                    var r = [];
+                    for (let i = 1; i < len; i++) {
+                        r.push(match[i])
+                    }
+                    result.push(r);
+                }
+            }
+        }
         return result;
-    } 
+    }
+    compare(property) {
+        return function(a, b) {
+            var value1 = a[property];
+            var value2 = b[property];
+            return value1 - value2;
+        }
+    }
+    filename(file, rename = '') {
+        if (!this.runfile) {
+            this.runfile = path.basename(file).replace(".js", '')
+        }
+        if (rename) {
+            rename = `-${rename}`;
+        }
+        return path.basename(file).replace(".js", rename);
+    }
 }
 module.exports = {
-    env,eval
+    env,
+    eval,
+    assert,
 }
