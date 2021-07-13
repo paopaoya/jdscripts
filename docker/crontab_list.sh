@@ -16,14 +16,10 @@
 35 1,22 * * * node /scripts/jd_nzmh.js >> /scripts/logs/jd_nzmh.log 2>&1
 #京东零食街 活动时间：###
 5 8 * * * node /scripts/jd_lsj.js >> /scripts/logs/jd_lsj.log 2>&1
-#欧洲
-1 10,13 * * * node /scripts/jd_europeancup.js >> /scripts/logs/jd_europeancup.log 2>&1
 #星系牧场 #wen
 1 */2 * * * node /scripts/jd_qqxing.js >> /scripts/logs/jd_qqxing.log 2>&1
 #京享值PK
 15 2,5,12,18,20 * * * node /scripts/jd_jxzpk.js >> /scripts/logs/jd_jxzpk.log 2>&1
-#海尔
-2 8 5-11 7 * node /scripts/jd_khyl.js >> /scripts/logs/jd_khyl.log 2>&1
 #柠檬众筹许愿池
 0 8,12 * * * node /scripts/jd_wish.js >> /scripts/logs/jd_wish.log 2>&1
 
