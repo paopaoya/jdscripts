@@ -119,13 +119,15 @@
 #京东金融分分币
 15 9 * * * node /scripts/jd_fq.js >> /scripts/logs/jd_fq.log 2>&1
 # 宠汪汪
-6 */2,23 * * * node /scripts/jd_joy.js >> /scripts/logs/jd_joy.log 2>&1
-# 宠汪汪赛跑与邀请助力
-1 9-13/2 * * * node /scripts/jd_joy_run.js >> /scripts/logs/jd_joy_run.log 2>&1
+45 */2,23 * * * node /scripts/jd_joy.js >> /scripts/logs/jd_joy.log 2>&1
+# 宠汪汪积分兑换京豆
+59 7,15,23 * * * node /scripts/jd_joy_reward.js >> /scripts/logs/jd_joy_reward.log 2>&1
 # 宠汪汪喂食
-15 0-23/1 * * * node /scripts/jd_joy_feedPets.js >> /scripts/logs/jd_joy_feedPets.log 2>&1
-# 宠汪汪偷好友积分与狗粮
-13 0-21/3 * * * node /scripts/jd_joy_steal.js >> /scripts/logs/jd_joy_steal.log 2>&1
+35 */1 * * * node /scripts/jd_joy_feedPets.js >> /scripts/logs/jd_joy_feedPets.log 2>&1
+# 宠汪汪偷好友积分与喂食
+10 0-21/3 * * * node /scripts/jd_joy_steal.js >> /scripts/logs/jd_joy_steal.log 2>&1
+# 宠汪汪邀请助力
+10 11,13,15 * * * node /scripts/jd_joy_run.js >> /scripts/logs/jd_joy_run.log 2>&1
 # 宠汪汪20兑换
 1 16 * * * node /scripts/jd_akreward.js >> /scripts/logs/jd_akreward.log 2>&1
 # 极速版柠檬赚金币改
