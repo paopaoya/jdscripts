@@ -495,8 +495,8 @@ async function joyReward() {
       // console.log(`宠物等级 ${data.level}\n`);
       let saleInfoId = '', giftValue = '', extInfo = '', leftStock = 0, salePrice = 0;
       let rewardNum = 0;
-      if ($.isNode() && process.env.JD_JOY_REWARD_NAME) {
-        rewardNum = process.env.JD_JOY_REWARD_NAME * 1;
+      if ($.isNode() && process.env.JD_JOY_REWARD) {
+        rewardNum = process.env.JD_JOY_REWARD * 1;
       } else if ($.getdata('joyRewardName')) {
         if ($.getdata('joyRewardName') * 1 === 1) {
           //兼容之前的BoxJs设置
@@ -583,7 +583,7 @@ async function joyReward() {
           //$.msg($.name, `兑换${giftName}失败`, `【京东账号${$.index}】${$.nickName}\n目前只有${data.coin}积分\n已不足兑换${giftName}所需的${salePrice}积分\n`)
         }
       } else {
-        console.log(`\n您设置了不兑换京豆,如需兑换京豆，请去BoxJs处设置或修改joyRewardName代码或设置环境变量 JD_JOY_REWARD_NAME`)
+        console.log(`\n您设置了不兑换京豆,如需兑换京豆，请去BoxJs处设置或修改joyRewardName代码或设置环境变量 JD_JOY_REWARD`)
       }
     } else {
       console.log(`${$.name}getExchangeRewards异常,${JSON.stringify($.getExchangeRewardsRes)}`)
