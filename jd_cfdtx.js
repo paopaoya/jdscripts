@@ -1,150 +1,71 @@
-/*
-京喜财富岛提现
-活动地址: 京喜-财富岛
-活动时间：长期
-更新时间：2021-06-4 12:00
-脚本兼容: QuantumultX, Surge,Loon, JSBox, Node.js
- 获取Token方式：
-  打开【❗️京喜农场❗️】，手动任意完成<工厂任务>、<签到任务>、<金牌厂长任务>一项，提示获取cookie成功即可，然后退出跑任务脚本
-=================================Quantumultx=========================
-[task_local]
-#京喜财富岛提现
-0 0 * * * https://raw.githubusercontent.com/jiulan/platypus/main/scripts/jx_cfdtx.js, tag=京喜财富岛提现, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png, enabled=true
-=================================Loon===================================
-[Script]
-cron "0 0 * * *" script-path=https://raw.githubusercontent.com/jiulan/platypus/main/scripts/jx_cfdtx.js,tag=京喜财富岛提现
-===================================Surge================================
-京喜财富岛提现 = type=cron,cronexp="0 0 * * *",wake-system=1,timeout=3600,script-path=https://raw.githubusercontent.com/jiulan/platypus/main/scripts/jx_cfdtx.js
-====================================小火箭=============================
-京喜财富岛提现 = type=cron,script-path=https://raw.githubusercontent.com/jiulan/platypus/main/scripts/jx_cfdtx.js, cronexpr="0 0 * * *", timeout=3600, enable=true
- */
-const $ = new Env("京喜财富岛提现");
+/**
+ *
+ Name:财富岛提现 (修改自https://gayhub.lensu.workers.dev/pxylen/dog_jd/master/jx_cfdtx.js)
+ *
+ **/
+
+const $ = new Env("京喜红包提现");
+const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 const JD_API_HOST = "https://m.jingxi.com/";
-const jdCookieNode = $.isNode() ? require("./jdCookie.js") : "";
-const jdTokenNode = $.isNode() ? require('./jdJxncTokens.js') : '';
-$.result = [];
 $.cookieArr = [];
-$.currentCookie = '';
-$.tokenArr = [];
-$.currentToken = {};
-$.strPhoneID = '';
-$.strPgUUNum = '';
-$.userName = '';
-
-!(async () => {
-  if (!getCookies()) return;
-  if (!getTokens()) return;
-  for (let i = 0; i < $.cookieArr.length; i++) {
-    $.currentCookie = $.cookieArr[i];
-    $.currentToken = $.tokenArr[i];
-    if ($.currentCookie) {
-      $.userName =  decodeURIComponent($.currentCookie.match(/pt_pin=(.+?);/) && $.currentCookie.match(/pt_pin=(.+?);/)[1]);
-      $.log(`\n开始【京东账号${i + 1}】${$.userName}`);
-
-      await cashOut();
-    }
-  }
-  await showMsg();
-})()
-  .catch((e) => $.logErr(e))
-  .finally(() => $.done());
-
-function cashOut() {
-  return new Promise(async (resolve) => {
-    $.get(
-      taskUrl(
-        `consume/CashOut`,
-        `ddwMoney=100&dwIsCreateToken=0&ddwMinPaperMoney=150000&strPgtimestamp=${$.currentToken['timestamp']}&strPhoneID=${$.currentToken['phoneid']}&strPgUUNum=${$.currentToken['farm_jstoken']}`
-      ),
-      async (err, resp, data) => {
-        try {
-          $.log(data);
-          const { iRet, sErrMsg } = JSON.parse(data);
-          $.log(sErrMsg);
-          $.result.push(`【${$.userName}】\n ${sErrMsg == "" ? sErrMsg="今天手气太棒了" : sErrMsg}`);
-          resolve(sErrMsg);
-        } catch (e) {
-          $.logErr(e, resp);
-        } finally {
-          resolve();
-        }
-      }
-    );
-  });
-}
-
-function taskUrl(function_path, body) {
-  return {
-    url: `${JD_API_HOST}jxcfd/${function_path}?strZone=jxcfd&bizCode=jxcfd&source=jxcfd&dwEnv=7&_cfd_t=${Date.now()}&ptag=&${body}&_stk=_cfd_t%2CbizCode%2CddwMinPaperMoney%2CddwMoney%2CdwEnv%2CdwIsCreateToken%2Cptag%2Csource%2CstrPgUUNum%2CstrPgtimestamp%2CstrPhoneID%2CstrZone&_ste=1&_=${Date.now()}&sceneval=2&g_login_type=1&g_ty=ls`,
-    headers: {
-      Cookie: $.currentCookie,
-      Accept: "*/*",
-      Connection: "keep-alive",
-      Referer:"https://st.jingxi.com/fortune_island/cash.html?jxsid=16115391812299482601&_f_i_jxapp=1",
-      "Accept-Encoding": "gzip, deflate, br",
-      Host: "m.jingxi.com",
-      "User-Agent":"jdpingou;iPhone;4.1.4;14.3;9f08e3faf2c0b4e72900552400dfad2e7b2273ba;network/wifi;model/iPhone11,6;appBuild/100415;ADID/00000000-0000-0000-0000-000000000000;supportApplePay/1;hasUPPay/0;pushNoticeIsOpen/0;hasOCPay/0;supportBestPay/0;session/428;pap/JA2019_3111789;brand/apple;supportJDSHWK/1;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148",
-      "Accept-Language": "zh-cn",
-    },
-  };
-}
-
-function getCookies() {
-  if ($.isNode()) {
-    $.cookieArr = Object.values(jdCookieNode);
-  } else {
-    const CookiesJd = JSON.parse($.getdata("CookiesJD") || "[]").filter(x => !!x).map(x => x.cookie);
-    $.cookieArr = [$.getdata("CookieJD") || "", $.getdata("CookieJD2") || "", ...CookiesJd];
-  }
-  if (!$.cookieArr[0]) {
-    $.msg(
-      $.name,
-      "【提示】请先获取京东账号一cookie\n直接使用NobyDa的京东签到获取",
-      "https://bean.m.jd.com/",
-      {
-        "open-url": "https://bean.m.jd.com/",
-      }
-    );
-    return false;
-  }
-  return true;
-}
-
-function getTokens() {
-  if ($.isNode()) {
-    Object.keys(jdTokenNode).forEach((item) => {
-      $.tokenArr.push(jdTokenNode[item] ? JSON.parse(jdTokenNode[item]) : '{}');
+if ($.isNode()) {
+    Object.keys(jdCookieNode).forEach((item) => {
+        $.cookieArr.push(jdCookieNode[item])
     })
-  } else {
-    $.tokenArr = JSON.parse($.getdata('jx_tokens') || '[]');
-  }
-  if (!$.tokenArr[0]) {
-    $.msg(
-      $.name,
-      "【⏰提示】请先获取京喜Token\n获取方式见脚本说明"
-    );
-    return false;
-  }
-  return true;
+    if (process.env.JD_DEBUG && process.env.JD_DEBUG === 'false') console.log = () => {};
+} else {
+    cookiesArr = [$.getdata('CookieJD'), $.getdata('CookieJD2'), ...jsonParse($.getdata('CookiesJD') || "[]").map(item => item.cookie)].filter(item => !!item);
+}
+!(async () => {
+    for (let cookie of $.cookieArr) {
+        $.UserName = decodeURIComponent(cookie.match(/pt_pin=([^; ]+)(?=;?)/) && cookie.match(/pt_pin=([^; ]+)(?=;?)/)[1])
+        $.log(`\n=======================================\n开始【账号：${$.UserName}】`)
+        await cashOut(cookie)
+    }
+})()
+    .catch((e) => $.logErr(e))
+    .finally(() => $.done());
+
+function cashOut(ac) {
+    return new Promise(async (resolve) => {
+        $.get(
+            taskUrl(
+                `user/ExchangePrize`,
+                `ddwPaperMoney=100000&&strPoolName=jxcfd2_exchange_hb_2021&strPgtimestamp=undefined&strPhoneID=undefined&strPgUUNum=undefined`,
+                ac
+            ),
+            async (err, resp, data) => {
+                try {
+                    if (err) {
+                        $.logErr(`❌ 账号${ac.no} API请求失败，请检查网络后重试\n data: ${JSON.stringify(err, null, 2)}`);
+                    } else {
+                        let sErrMsg = $.toObj(data);
+                        console.log(`红包提现结果：${sErrMsg.sErrMsg}`)
+                    }
+                } catch (e) {
+                    $.logErr(`======== 账号 ${ac.no} ========\nerror:${e}\ndata: ${resp && resp.body}`)
+                } finally {
+                    resolve(ac);
+                }
+            }
+        );
+    });
 }
 
-function showMsg() {
-  return new Promise((resolve) => {
-    if ($.notifyTime) {
-      const notifyTimes = $.notifyTime.split(",").map((x) => x.split(":"));
-      const now = $.time("HH:mm").split(":");
-      $.log(`\n${JSON.stringify(notifyTimes)}`);
-      $.log(`\n${JSON.stringify(now)}`);
-      if (
-        notifyTimes.some((x) => x[0] === now[0] && (!x[1] || x[1] === now[1]))
-      ) {
-        $.msg($.name, "", `\n${$.result.join("\n")}`);
-      }
-    } else {
-      $.msg($.name, "", `\n${$.result.join("\n")}`);
-    }
-    resolve();
-  });
+function taskUrl(function_path, body, ck) {
+    return {
+        url: `${JD_API_HOST}jxbfd/${function_path}?strZone=jxbfd&bizCode=jxbfd&source=jxbfd&dwEnv=7&_cfd_t=${Date.now()}&ptag=7155.9.47&dwType=3&dwLvl=10&${body}&_stk=_cfd_t%2CbizCode%2CddwPaperMoney%2CdwEnv%2CdwLvl%2CdwType%2Cptag%2Csource%2CstrPoolName%2CstrZone&_ste=1&h5st=20210714194505287%3B0008312373818162%3B10032%3Btk01wef211d4ea8nVnBKbkI2YWMyLsdfUxEgOgzh%2BGXmysR3jrvoYsR5UiQmQXKDaskgnKcEhmAqe%2BhVC5n3FVHFTTjE%3B30385d4f25fc9cb5170507d9d9648abe6d396d055b3f891d622eb37671cf288c&_=${Date.now()}&sceneval=2&g_login_type=1&g_ty=ls`,
+        headers: {
+            Cookie: ck,
+            Accept: "*/*",
+            Connection: "keep-alive",
+            Referer:"https://st.jingxi.com/fortune_island/index2.html?ptag=7155.9.47&sceneval=2",
+            "Accept-Encoding": "gzip, deflate",
+            Host: "m.jingxi.com",
+            "User-Agent":`jdpingou;iPhone;3.15.2;14.2.1;ea00763447803eb0f32045dcba629c248ea53bb3;network/wifi;model/iPhone13,2;appBuild/100365;ADID/00000000-0000-0000-0000-000000000000;supportApplePay/1;hasUPPay/0;pushNoticeIsOpen/0;hasOCPay/0;supportBestPay/0;session/${Math.random * 98 + 1};pap/JA2015_311210;brand/apple;supportJDSHWK/1;Mozilla/5.0 (iPhone; CPU iPhone OS 14_2_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148`,
+            "Accept-Language": "zh-cn",
+        },
+    };
 }
 
 // prettier-ignore
