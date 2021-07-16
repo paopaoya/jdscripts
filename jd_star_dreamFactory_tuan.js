@@ -23,8 +23,8 @@ const JD_API_HOST = 'https://m.jingxi.com';
 const notify = $.isNode() ? require('./sendNotify') : '';
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 const openTuanCK = $.isNode() ? (process.env.OPEN_DREAMFACTORY_TUAN ? process.env.OPEN_DREAMFACTORY_TUAN : '1'):'1';
-const helpFlag = true;//是否参考作者团
-let tuanActiveId = ``;
+const helpFlag = false;//是否参考作者团
+let tuanActiveId = `T_zZaWP6by9yA1wehxM4mg==`;
 let cookiesArr = [], cookie = '', message = '';
 $.tuanIds = [];
 $.appId = 10001;
@@ -43,8 +43,8 @@ if ($.isNode()) {
   let openTuanCKList = openTuanCK.split(',');
   $.CryptoJS = $.isNode() ? require('crypto-js') : CryptoJS;
   await requestAlgo();
-  await getTuanActiveId();
-  if(!tuanActiveId){console.log(`未能获取到有效的团活动ID`);return ;}
+  //await getTuanActiveId();
+  //if(!tuanActiveId){console.log(`未能获取到有效的团活动ID`);return ;}
   //let nowTime = getCurrDate();
   // let jdFactoryTime = $.getdata('jdFactoryTime');
   // if (!jdFactoryTime || nowTime !== jdFactoryTime) {$.setdata(nowTime, 'jdFactoryTime');$.setdata({}, 'jdFactoryHelpList');}
