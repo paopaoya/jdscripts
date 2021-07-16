@@ -126,10 +126,8 @@
 15 0-23/1 * * * node /scripts/jd_joy_feedPets.js >> /scripts/logs/jd_joy_feedPets.log 2>&1
 # 宠汪汪偷好友积分与狗粮
 13 0-21/3 * * * node /scripts/jd_joy_steal.js >> /scripts/logs/jd_joy_steal.log 2>&1
-# 宠汪汪积分兑换京豆.验证码
-58,59 23,7,15 * * * node /scripts/jd_task_validate.js >> /scripts/logs/jd_task_validate.log 2>&1
 # 宠汪汪积分兑换京豆.
-0,1 */8 * * * node /scripts/jd_reward_joy.js >> /scripts/logs/jd_reward_joy.log 2>&1
+#0,1 */8 * * * node /scripts/jd_reward_joy.js >> /scripts/logs/jd_reward_joy.log 2>&1
 # 宠汪汪20兑换
 0 16 * * * node /scripts/jd_akreward.js >> /scripts/logs/jd_akreward.log 2>&1
 # 极速版柠檬赚金币改
