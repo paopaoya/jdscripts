@@ -10,3 +10,5 @@
 10 11,13,15 * * * node /scripts/jd_joy_run.js >> /scripts/logs/jd_joy_run.log 2>&1
 # 宠汪汪20兑换
 1 16 * * * node /scripts/jd_akreward.js >> /scripts/logs/jd_akreward.log 2>&1
+# 新版点点券
+9 0,20 * * * node /scripts/jd_necklace.js >> /scripts/logs/jd_necklace.log 2>&1
