@@ -27,7 +27,7 @@
 
 ##############长期活动##############
 # 签到
-7 0,9 * * * cd /scripts && node jd_bean_sign.js >> /scripts/logs/jd_bean_sign.log 2>&1
+7 0,9 * * * node /scripts/jd_bean_sign.js >> /scripts/logs/jd_bean_sign.log 2>&1
 # 东东超市兑换奖品
 0,30 0 * * * node /scripts/jd_blueCoin.js >> /scripts/logs/jd_blueCoin.log 2>&1
 # 摇京豆
@@ -146,3 +146,5 @@
 10 11,13,15 * * * node /scripts/jd_joy_run.js >> /scripts/logs/jd_joy_run.log 2>&1
 # 宠汪汪20兑换
 1 16 * * * node /scripts/jd_akreward.js >> /scripts/logs/jd_akreward.log 2>&1
+# 京喜签到
+8 8 * * * node /scripts/jd_jxqd.js >> /scripts/logs/jd_jxqd.log 2>&1
