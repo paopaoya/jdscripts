@@ -38,13 +38,14 @@ if ($.isNode()) {
 }
 
 const JD_API_HOST = 'https://ms.jr.jd.com/gw/generic/uc/h5/m';
-let userInfo = null, message = '', subTitle = '';
+let userInfo = null, canRun = '', subTitle = '';
 !(async () => {
   await requireConfig()
   await $.wait(1000);
   if (!cookiesArr[0]) {
     $.msg($.name, '【提示】请先获取cookie\n直接使用NobyDa的京东签到获取', 'https://bean.m.jd.com/bean/signIndex.action', { "open-url": "https://bean.m.jd.com/bean/signIndex.action" });
   }
+  console.log(`\n****开始获取摇钱树互助码****\n`);
   for (let i = 0; i < cookiesArr.length; i++) {
     if (cookiesArr[i]) {
       cookie = cookiesArr[i];
@@ -53,7 +54,6 @@ let userInfo = null, message = '', subTitle = '';
       $.isLogin = true;
       $.nickName = '';
       await TotalBean();
-      console.log(`\n****开始【京东账号${$.index}】${$.nickName || $.UserName}****\n`);
       if (!$.isLogin) {
         $.msg($.name, `【提示】cookie已失效`, `京东账号${$.index} ${$.nickName || $.UserName}\n请重新登录获取\nhttps://bean.m.jd.com/bean/signIndex.action`, { "open-url": "https://bean.m.jd.com/bean/signIndex.action" });
         if ($.isNode()) {
@@ -63,8 +63,24 @@ let userInfo = null, message = '', subTitle = '';
       }
       message = '';
       subTitle = '';
+      await getsharePin();
+      await $.wait(1000);
+    }
+  }
+  for (let i = 0; i < cookiesArr.length; i++) {
+    if (cookiesArr[i]) {
+      cookie = cookiesArr[i];
+      $.UserName = decodeURIComponent(cookie.match(/pt_pin=([^; ]+)(?=;?)/) && cookie.match(/pt_pin=([^; ]+)(?=;?)/)[1])
+      $.index = i + 1;
+      $.isLogin = true;
+      $.canRun = true;
+      $.nickName = '';
+      await TotalBean();
+      console.log(`\n****开始【京东账号${$.index}】${$.nickName || $.UserName}****\n`);
+      message = '';
+      subTitle = '';
       await shareCodesFormat();
-      await $.wait(2000);
+      await $.wait(1000);
       await helpFriends();
     }
   }
@@ -79,14 +95,54 @@ let userInfo = null, message = '', subTitle = '';
 async function helpFriends() {
   try {
     for (let code of $.newShareCodes) {
-      if (!code) continue
       console.log(`去助力${code}`)
       await help(code)
-      await $.wait(500)
+      await $.wait(1000)
+      if (!$.canRun) {
+        break;
+      }
     }
   } catch (e) {
     $.logErr(e)
   }
+}
+
+function getsharePin() {
+  const params = { "sharePin": "", "shareType": 1, "channelLV": "", "source": 2, "riskDeviceParam": { "eid": "", "fp": "", "sdkToken": "", "token": "", "jstub": "", "appType": "2", } }
+  params.riskDeviceParam = JSON.stringify(params.riskDeviceParam);
+  return new Promise((resolve, reject) => {
+    $.post(taskurl('login', params), async (err, resp, data) => {
+      try {
+        if (err) {
+          console.log("\n摇钱树京东API请求失败 ‼️‼️")
+          console.log(JSON.stringify(err));
+        } else {
+          if (data) {
+            const res = JSON.parse(data);
+            if (res && res.resultCode === 0) {
+              $.isLogin = true;
+              if (res.resultData.data) {
+                userInfo = res.resultData.data;
+                if (userInfo.realName) {
+                  console.log(`【京东账号${$.index}（${$.UserName}）的摇钱树好友互助码】${userInfo.sharePin}`);
+                } else {
+                  $.log(`京东账号${$.index}${$.UserName}运行失败\n此账号未实名认证或者未参与过此活动\n①如未参与活动,请先去京东app参加摇钱树活动\n入口：我的->游戏与互动->查看更多\n②如未实名认证,请进行实名认证`)
+                }
+              }
+            } else {
+              console.log(`其他情况::${JSON.stringify(res)}`);
+            }
+          } else {
+            console.log(`京东api返回数据为空，请检查自身原因`)
+          }
+        }
+      } catch (eor) {
+        $.logErr(eor, err)
+      } finally {
+        resolve(userInfo)
+      }
+    })
+  })
 }
 
 function help(sharePin) {
@@ -105,9 +161,10 @@ function help(sharePin) {
               $.isLogin = true;
               if (res.resultData.data) {
                 userInfo = res.resultData.data;
+                console.log(res.resultData.msg);
                 if (userInfo.realName) {
-                  console.log(`【京东账号${$.index}（${$.UserName}）的摇钱树好友互助码为：】${userInfo.sharePin}`);
                 } else {
+                  $.canRun = false;
                   $.log(`京东账号${$.index}${$.UserName}运行失败\n此账号未实名认证或者未参与过此活动\n①如未参与活动,请先去京东app参加摇钱树活动\n入口：我的->游戏与互动->查看更多\n②如未实名认证,请进行实名认证`)
                 }
               }
@@ -173,7 +230,24 @@ function requireConfig() {
   })
 }
 
-var _0xodC = 'jsjiami.com.v6', _0x1673 = [_0xodC, '\x6e\x65\x77\x53\x68\x61\x72\x65\x43\x6f\x64\x65\x73', '\x74\x5f\x37\x4c\x56\x47\x50\x38\x6d\x6f\x70\x6f\x66\x68\x38\x41\x47\x30\x51\x37\x45\x38\x41\x64\x6f\x55\x4a\x51\x33\x44\x69\x6b\x40\x7a\x45\x78\x41\x37\x6c\x4e\x63\x33\x48\x72\x4a\x72\x62\x56\x75\x47\x33\x78\x52\x56\x4d\x41\x64\x6f\x55\x4a\x51\x33\x44\x69\x6b\x40\x63\x76\x77\x57\x69\x7a\x39\x6f\x32\x65\x76\x4e\x48\x46\x64\x4e\x6b\x30\x6f\x4e\x62\x4d\x41\x64\x6f\x55\x4a\x51\x33\x44\x69\x6b\x40\x38\x4d\x51\x36\x77\x72\x64\x39\x48\x30\x49\x41\x75\x6a\x4e\x47\x55\x71\x7a\x54\x41\x41', '\x73\x68\x61\x72\x65\x43\x6f\x64\x65\x73\x41\x72\x72', '\x69\x6e\x64\x65\x78', '\x73\x70\x6c\x69\x74', '\x6c\x6f\x67', '\u7531\u4e8e\u60a8\u7b2c', '\u4e2a\u4eac\u4e1c\u8d26\u53f7\u672a\u63d0\u4f9b\x73\x68\x61\x72\x65\x43\x6f\x64\x65\x2c\u5c06\u4e3a\u672c\u811a\u672c\u4f5c\u8005\u3010\x7a\x65\x72\x6f\x32\x30\x35\u3011\u52a9\u529b\x0a', '\x6c\x65\x6e\x67\x74\x68', '\u4e2a\u4eac\u4e1c\u8d26\u53f7\u5c06\u8981\u52a9\u529b\u7684\u597d\u53cb', '\x73\x74\x72\x69\x6e\x67\x69\x66\x79', '\x59\x44\x64\x6c\x57\x56\x6a\x73\x53\x6a\x69\x78\x61\x6d\x59\x57\x69\x2e\x63\x43\x62\x6f\x6d\x2e\x76\x36\x3d\x3d']; var _0x44ce = function (_0x388be9, _0x15a3fa) { _0x388be9 = ~~'0x'['concat'](_0x388be9); var _0x2ad4b1 = _0x1673[_0x388be9]; return _0x2ad4b1; }; (function (_0x315f58, _0x334f84) { var _0x438bf3 = 0x0; for (_0x334f84 = _0x315f58['shift'](_0x438bf3 >> 0x2); _0x334f84 && _0x334f84 !== (_0x315f58['pop'](_0x438bf3 >> 0x3) + '')['replace'](/[YDdlWVSxYWCb=]/g, ''); _0x438bf3++) { _0x438bf3 = _0x438bf3 ^ 0x98b47; } }(_0x1673, _0x44ce)); function shareCodesFormat() { return new Promise(async _0x371f75 => { $[_0x44ce('0')] = []; let _0x3ac38f = [_0x44ce('1'), _0x44ce('1')]; if ($[_0x44ce('2')][$[_0x44ce('3')] - 0x1]) { $[_0x44ce('0')] = $[_0x44ce('2')][$[_0x44ce('3')] - 0x1][_0x44ce('4')]('\x40'); } else { console[_0x44ce('5')](_0x44ce('6') + $[_0x44ce('3')] + _0x44ce('7')); const _0xb6ff09 = $[_0x44ce('3')] > _0x3ac38f[_0x44ce('8')] ? _0x3ac38f[_0x44ce('8')] - 0x1 : $[_0x44ce('3')] - 0x1; $[_0x44ce('0')] = _0x3ac38f[_0xb6ff09][_0x44ce('4')]('\x40'); } console[_0x44ce('5')]('\u7b2c' + $[_0x44ce('3')] + _0x44ce('9') + JSON[_0x44ce('a')]($[_0x44ce('0')])); _0x371f75(); }); }; _0xodC = 'jsjiami.com.v6';
+function shareCodesFormat() {
+  return new Promise(async resolve => {
+    $.newShareCodes = [];
+    let inviteCodes = [
+      't_7LVGP8mopofh8AG0Q7E8AdoUJQ3Dik@zExA7lNc3HrJrbVuG3xRVMAdoUJQ3Dik@cvwWiz9o2evNHFdNk0oNbMAdoUJQ3Dik@8MQ6wrd9H0IAujNGUqzTAA',
+      't_7LVGP8mopofh8AG0Q7E8AdoUJQ3Dik@zExA7lNc3HrJrbVuG3xRVMAdoUJQ3Dik@cvwWiz9o2evNHFdNk0oNbMAdoUJQ3Dik@8MQ6wrd9H0IAujNGUqzTAA'
+    ];
+    if ($.shareCodesArr[$.index - 1]) {
+      $.newShareCodes = $.shareCodesArr[$.index - 1].split('@');
+    } else {
+      console.log(`由于您第${$.index}个京东账号未提供shareCode,将为本脚本作者【zero205】助力\n`)
+      const tempIndex = $.index > inviteCodes.length ? (inviteCodes.length - 1) : ($.index - 1);
+      $.newShareCodes = inviteCodes[tempIndex].split('@');
+    }
+    console.log(`第${$.index}个京东账号将要助力的好友${JSON.stringify($.newShareCodes)}`)
+    resolve();
+  })
+}
 
 function TotalBean() {
   return new Promise(async resolve => {
