@@ -105,7 +105,7 @@ if ($.isNode()) {
             console.log(`不能助力自己`)
             continue
           }
-          console.log(`账号${$.UserName}去助力${$.shareCodes[j].use}的互助码${$.shareCodes[j].smp}`)
+          console.log(`账号 ${$.UserName} 去助力 ${$.shareCodes[j].use} 的互助码 ${$.shareCodes[j].smp}`)
           if ($.shareCodes[j].max) {
             console.log(`您的好友助力已达上限`)
             continue
@@ -237,7 +237,7 @@ function doubleSign() {
         } else {
           data = JSON.parse(data);
           if (data.retCode === 0){
-            console.log(`双签成功，获得${data.data.jd_amount / 100}元`)
+            console.log(`双签成功`)
           } else {
             console.log(`任务完成失败，错误信息${data.errMsg}`)
           }
