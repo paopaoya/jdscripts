@@ -26,7 +26,7 @@ const notify = $.isNode() ? require('./sendNotify') : '';
 //Node.js用户请在jdCookie.js处填写京东ck;
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 let jdNotify = true;//是否关闭通知，false打开通知推送，true关闭通知推送
-const helpAuthor = false; // 是否帮助作者助力，false打开通知推送，true关闭通知推送
+const helpAuthor = true; // 是否帮助作者助力，false打开通知推送，true关闭通知推送
 //IOS等用户直接用NobyDa的jd cookie
 let cookiesArr = [], cookie = '', uuid = '', message;
 if ($.isNode()) {
@@ -41,12 +41,12 @@ if ($.isNode()) {
 const JD_API_HOST = 'https://api.m.jd.com/';
 !(async () => {
   $.newShareCodes = []
-  $.authorCode = await getAuthorShareCode('https://raw.githubusercontent.com/Aaron-lv/updateTeam/master/shareCodes/jd_dateBeanHome.json')
-  if (!$.authorCode) {
-    $.http.get({url: 'https://purge.jsdelivr.net/gh/Aaron-lv/updateTeam@master/shareCodes/jd_dateBeanHome.json'}).then((resp) => {}).catch((e) => $.log('刷新CDN异常', e));
-    await $.wait(1000)
-    $.authorCode = await getAuthorShareCode('https://cdn.jsdelivr.net/gh/Aaron-lv/updateTeam@master/shareCodes/jd_dateBeanHome.json') || []
-  }
+  // $.authorCode = await getAuthorShareCode('https://raw.githubusercontent.com/Aaron-lv/updateTeam/master/shareCodes/jd_updateBeanHome.json')
+  // if (!$.authorCode) {
+  //   $.http.get({url: 'https://purge.jsdelivr.net/gh/Aaron-lv/updateTeam@master/shareCodes/jd_updateBeanHome.json'}).then((resp) => {}).catch((e) => $.log('刷新CDN异常', e));
+  //   await $.wait(1000)
+  //   $.authorCode = await getAuthorShareCode('https://cdn.jsdelivr.net/gh/Aaron-lv/updateTeam@master/shareCodes/jd_updateBeanHome.json') || []
+  // }
   if (!cookiesArr[0]) {
     $.msg($.name, '【提示】请先获取京东账号一cookie\n直接使用NobyDa的京东签到获取', 'https://bean.m.jd.com/bean/signIndex.action', {"open-url": "https://bean.m.jd.com/bean/signIndex.action"});
     return;
@@ -59,7 +59,7 @@ const JD_API_HOST = 'https://api.m.jd.com/';
       $.isLogin = true;
       $.nickName = '';
       message = '';
-      uuid = randomString(40)
+      uuid = randomString()
       await TotalBean();
       console.log(`\n******开始【京东账号${$.index}】${$.nickName || $.UserName}*********\n`);
       if (!$.isLogin) {
@@ -73,49 +73,49 @@ const JD_API_HOST = 'https://api.m.jd.com/';
       await jdBeanHome();
     }
   }
-  for (let i = 0; i < cookiesArr.length; i++) {
-    $.index = i + 1;
-    if (cookiesArr[i]) {
-      cookie = cookiesArr[i];
-      $.canHelp = true;
-      $.UserName = decodeURIComponent(cookie.match(/pt_pin=([^; ]+)(?=;?)/) && cookie.match(/pt_pin=([^; ]+)(?=;?)/)[1])
-      if ($.newShareCodes.length > 1) {
-        console.log(`\n【抢京豆】 ${$.UserName} 去助力排名第一的cookie`);
-        // let code = $.newShareCodes[(i + 1) % $.newShareCodes.length]
-        // await help(code[0], code[1])
-        let code = $.newShareCodes[0];
-        if(code[2] && code[2] ===  $.UserName){
-          //不助力自己
-        } else {
-          await help(code[0], code[1]);
-        }
-      }
-      //if (helpAuthor && $.authorCode && $.canHelp) {
-       // console.log(`\n【抢京豆】${$.UserName} 去帮助作者`)
-       // for (let code of $.authorCode) {
-        //  const helpRes = await help(code.shareCode, code.groupCode);
-        //  if (helpRes && helpRes['code'] === '0') {
-          //  if (helpRes && helpRes.data && helpRes.data.respCode === 'SG209') {
-         //     console.log(`${helpRes.data.helpToast}\n`);
-        //      break;
-         //   }
-       //   } else {
-        //    console.log(`助力异常:${JSON.stringify(helpRes)}\n`);
-        //  }
-       // }
-     // }
-      for (let j = 1; j < $.newShareCodes.length && $.canHelp; j++) {
-        let code = $.newShareCodes[j];
-        if(code[2] && code[2] ===  $.UserName){
-          //不助力自己
-        } else {
-          console.log(`【抢京豆】${$.UserName} 去助力账号 ${j + 1}`);
-          await help(code[0], code[1]);
-          await $.wait(2000);
-        }
-      }
-    }
-  }
+  // for (let i = 0; i < cookiesArr.length; i++) {
+  //   $.index = i + 1;
+  //   if (cookiesArr[i]) {
+  //     cookie = cookiesArr[i];
+  //     $.canHelp = true;
+  //     $.UserName = decodeURIComponent(cookie.match(/pt_pin=([^; ]+)(?=;?)/) && cookie.match(/pt_pin=([^; ]+)(?=;?)/)[1])
+  //     if ($.newShareCodes.length > 1) {
+  //       console.log(`\n【抢京豆】 ${$.UserName} 去助力排名第一的cookie`);
+  //       // let code = $.newShareCodes[(i + 1) % $.newShareCodes.length]
+  //       // await help(code[0], code[1])
+  //       let code = $.newShareCodes[0];
+  //       if(code[2] && code[2] ===  $.UserName){
+  //         //不助力自己
+  //       } else {
+  //         await help(code[0], code[1]);
+  //       }
+  //     }
+  //     if (helpAuthor && $.authorCode && $.canHelp) {
+  //       console.log(`\n【抢京豆】${$.UserName} 去帮助作者`)
+  //       for (let code of $.authorCode) {
+  //         const helpRes = await help(code.shareCode, code.groupCode);
+  //         if (helpRes && helpRes['code'] === '0') {
+  //           if (helpRes && helpRes.data && helpRes.data.respCode === 'SG209') {
+  //             console.log(`${helpRes.data.helpToast}\n`);
+  //             break;
+  //           }
+  //         } else {
+  //           console.log(`助力异常:${JSON.stringify(helpRes)}\n`);
+  //         }
+  //       }
+  //     }
+  //     for (let j = 1; j < $.newShareCodes.length && $.canHelp; j++) {
+  //       let code = $.newShareCodes[j];
+  //       if(code[2] && code[2] ===  $.UserName){
+  //         //不助力自己
+  //       } else {
+  //         console.log(`【抢京豆】${$.UserName} 去助力账号 ${j + 1}`);
+  //         await help(code[0], code[1]);
+  //         await $.wait(2000);
+  //       }
+  //     }
+  //   }
+  // }
 })()
   .catch((e) => {
     $.log('', `❌ ${$.name}, 失败! 原因: ${e}!`, '')
@@ -148,6 +148,8 @@ async function jdBeanHome() {
     await $.wait(1000)
 
     await beanTaskList(1)
+    await $.wait(1000)
+    await queryCouponInfo()
     $.doneState = false
     do {
       await $.wait(2000)
@@ -320,12 +322,65 @@ function beanHomeIconDoTask(body) {
     })
   })
 }
-function randomString(e) {
-  e = e || 32;
-  let t = "abcdefhijkmnprstwxyz2345678", a = t.length, n = "";
-  for (i = 0; i < e; i++)
-    n += t.charAt(Math.floor(Math.random() * a));
-  return n
+async function queryCouponInfo() {
+  return new Promise(async resolve => {
+    $.get(taskBeanUrl('queryCouponInfo', {"rnVersion":"4.7","fp":"-1","shshshfp":"-1","shshshfpa":"-1","referUrl":"-1","userAgent":"-1","jda":"-1"}), async (err, resp, data) => {
+      try {
+        if (err) {
+          console.log(`${JSON.stringify(err)}`)
+          console.log(`${$.name} queryCouponInfo API请求失败，请检查网路重试`)
+        } else {
+          if (safeGet(data)) {
+            data = JSON.parse(data);
+            if (data.data && data.data.couponTaskInfo) {
+              if (!data.data.couponTaskInfo.awardFlag) {
+                console.log(`去做[${data.data.couponTaskInfo.taskName}]`)
+                await sceneGetCoupon()
+              } else {
+                console.log(`[${data.data.couponTaskInfo.taskName}]已做完`)
+              }
+            }
+          }
+        }
+      } catch (e) {
+        $.logErr(e, resp)
+      } finally {
+        resolve();
+      }
+    })
+  })
+}
+function sceneGetCoupon() {
+  return new Promise(resolve => {
+    $.get(taskBeanUrl('sceneGetCoupon', {"rnVersion":"4.7","fp":"-1","shshshfp":"-1","shshshfpa":"-1","referUrl":"-1","userAgent":"-1","jda":"-1"}), (err, resp, data) => {
+      try {
+        if (err) {
+          console.log(`${JSON.stringify(err)}`)
+          console.log(`${$.name} sceneGetCoupon API请求失败，请检查网路重试`)
+        } else {
+          if (safeGet(data)) {
+            data = JSON.parse(data);
+            if (data.code === '0' && data.data && data.data.bizMsg) {
+              console.log(data.data.bizMsg)
+            } else {
+              console.log(`完成任务失败：${data}`)
+            }
+          }
+        }
+      } catch (e) {
+        $.logErr(e, resp)
+      } finally {
+        resolve();
+      }
+    })
+  })
+}
+function randomString() {
+  return Math.random().toString(16).slice(2, 10) +
+    Math.random().toString(16).slice(2, 10) +
+    Math.random().toString(16).slice(2, 10) +
+    Math.random().toString(16).slice(2, 10) +
+    Math.random().toString(16).slice(2, 10)
 }
 
 function getRandomInt(min, max) {

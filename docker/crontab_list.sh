@@ -18,12 +18,8 @@
 5 8 * * * node /scripts/jd_lsj.js >> /scripts/logs/jd_lsj.log 2>&1
 #星系牧场 #wen
 1 */2 * * * node /scripts/jd_qqxing.js >> /scripts/logs/jd_qqxing.log 2>&1
-#京享值PK
-15 2,5,12,18,20 * * * node /scripts/jd_jxzpk.js >> /scripts/logs/jd_jxzpk.log 2>&1
 #柠檬众筹许愿池
 0 8,12 * * * node /scripts/jd_wish.js >> /scripts/logs/jd_wish.log 2>&1
-#早起福利
-10 6 * * * node /scripts/jd_goodMorning.js >> /scripts/logs/jd_goodMorning.log 2>&1
 
 ##############长期活动##############
 # 签到
@@ -90,8 +86,6 @@
 10 6,21 * * * node /scripts/jd_ms.js >> /scripts/logs/jd_ms.log 2>&1
 #美丽研究院
 41 7,12,19 * * * node /scripts/jd_beauty.js >> /scripts/logs/jd_beauty.log 2>&1
-#京东保价
-#41 0,23 * * * node /scripts/jd_price.js >> /scripts/logs/jd_price.log 2>&1
 #京东极速版签到+赚现金任务
 21 1,6 * * * node /scripts/jd_speed_sign.js >> /scripts/logs/jd_speed_sign.log 2>&1
 #京东直播（又回来了）
@@ -106,8 +100,6 @@
 10 10,23 * * * node /scripts/jd_market_lottery.js >> /scripts/logs/jd_market_lottery.log 2>&1
 # 领金贴
 5 0 * * * node /scripts/jd_jin_tie.js >> /scripts/logs/jd_jin_tie.log 2>&1
-#送豆得豆
-15 0,1 * * * node /scripts/jd_sendBeans.js >> /scripts/logs/jd_sendBeans.js 2>&1
 # 京东试用
 #16 10 * * * node /scripts/jd_try.js >> /scripts/logs/jd_try.log 2>&1
 #东东乐园
