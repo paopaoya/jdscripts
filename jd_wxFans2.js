@@ -1,10 +1,9 @@
 /**
- * 8月粉丝互动
+ * sk2店铺粉丝互动，需入会
  * 改自 GitHub@Wenmoux 7月互动的脚本
- *
- * cron: 随便吧~ 一天跑个两次
+ * cron: 随便吧~
  */
-const $ = new Env('八月粉丝互动');
+const $ = new Env('店铺粉丝互动');
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 const notify = $.isNode() ? require('./sendNotify') : '';
 let cookiesArr = [], cookie = '';
@@ -12,12 +11,11 @@ if ($.isNode()) {
     Object.keys(jdCookieNode).forEach((item) => {
         cookiesArr.push(jdCookieNode[item])
     })
-    if (process.env.JD_DEBUG && process.env.JD_DEBUG === 'false') console.log = () => {};
+    if (process.env.JD_DEBUG && process.env.JD_DEBUG === 'false') console.log = () => {
+    };
 } else {
     cookiesArr = [$.getdata('CookieJD'), $.getdata('CookieJD2'), ...jsonParse($.getdata('CookiesJD') || "[]").map(item => item.cookie)].filter(item => !!item);
 }
-// let actid = "31073025b8a34de59d8d55faffdd44ab";
-// let uuuid = "31073025b8a34de59d8d55faffdd44ab";
 
 let actid = "5cd5b2ad1d284ea6bcc4b7e05baf4b7d";
 let uuuid = "5cd5b2ad1d284ea6bcc4b7e05baf4b7d";
@@ -47,22 +45,15 @@ let uuuid = "5cd5b2ad1d284ea6bcc4b7e05baf4b7d";
                 continue
             }
             await genToken()
-            await $.wait(1000);
             await getActCk()
-            await $.wait(1000);
             await getToken2()
-            await $.wait(1000);
             await getshopid()
-            await $.wait(1000);
             await getMyPin()
-            await $.wait(1000);
             await adlog()
-            await $.wait(1000);
             await getActinfo()
             if ($.taskList && !$.fd3) {
-                if ($.energy < 100) await getask()
+                if ($.energy < 100) await getask();
                 await getActinfo(true)
-                await $.wait(1000);
                 console.log("去抽福袋...")
                 if ($.energy >= 30 && !$.fd1) await dotask("startDraw", "&drawType=01")
                 if ($.energy >= 60 && !$.fd2) await dotask("startDraw", "&drawType=02")
@@ -286,38 +277,39 @@ async function getask() {
     let taskArr = ["task1Sign", "task2BrowGoods", "task3AddCart", "task4Share"]
     for (o = 0; o < taskArr.length; o++) {
         let task = $.taskList[taskArr[o]]
-        if (task.upLimit == task.finishedCount) {
+        if (task.upLimit === task.finishedCount) {
             console.log("任务" + (o + 1) + "已完成")
+            await $.wait(666);
         } else {
-            console.log(`去做任务：${taskArr[o]}`)
+            console.log(`去做任务: ${taskArr[o]}`)
             if (o == 0) {
-                await dotask("doSign");
-                await $.wait(2000);
+                await $.wait(1000);
+                await dotask("doSign")
             }
             if (o == 1) {
                 for (bgoods of task.taskGoodList.slice(0, 5)) {
+                    await $.wait(1000);
                     await dotask("doBrowGoodsTask", `&skuId=${bgoods.skuId}`)
-                    await $.wait(2000);
                 }
             }
             if (o == 2) {
                 for (bgoods of task.taskGoodList.slice(0, 5)) {
-                    await dotask("doAddGoodsTask", `&skuId=${bgoods.skuId}`);
-                    await $.wait(2000);
+                    await $.wait(1000);
+                    await dotask("doAddGoodsTask", `&skuId=${bgoods.skuId}`)
                 }
             }
             if (o == 3) {
+                await $.wait(1000);
                 await dotask("doShareTask")
-                await $.wait(2000);
+                await $.wait(1000);
                 await dotask("doShareTask")
-                await $.wait(2000);
             }
         }
     }
-    if (!$.follow) {
-        console.log("去做任务：followShop")
-        await dotask("followShop")
-        await $.wait(2000);
+    if ($.follow) {
+        console.log("去做任务：Metting")
+        await $.wait(1300);
+        await dotask("doMeetingTask")
     }
 }
 
@@ -332,13 +324,8 @@ function dotask(id, body) {
                     let info = JSON.parse(data)
                     if (info && info.result) {
                         console.log(`    操作结果：${info.result}`)
-                        if (id == "startDraw") {
-                            if (info.data.drawOk) {
-                                console.log(`    抽奖成功,获得 ${info.data.drawInfo.name}`)
-                            } else {
-                                console.log(JSON.stringify(info))
-                            }
-                        }
+                    } else {
+                        console.log(JSON.stringify(info))
                     }
                 }
             } catch (e) {
