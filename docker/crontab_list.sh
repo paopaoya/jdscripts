@@ -142,7 +142,5 @@
 5 10 * * * node /scripts/jd_ylyn.js >> /scripts/logs/jd_ylyn.log 2>&1
 # 京喜财富岛提现
 59 11,12,23 * * * node /scripts/jd_cfdtx.js >> /scripts/logs/jd_cfdtx.log 2>&1
-# 跳跳乐瓜分京豆
-15 0,12,22 * * * node /scripts/jd_jump.js >> /scripts/logs/jd_jump.log 2>&1
 # 新版点点券
 9 0,20 * * * node /scripts/jd_necklace.js >> /scripts/logs/jd_necklace.log 2>&1
