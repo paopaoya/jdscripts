@@ -18,10 +18,6 @@
 1 */2 * * * node /scripts/jd_qqxing.js >> /scripts/logs/jd_qqxing.log 2>&1
 #柠檬众筹许愿池
 0 8,12 * * * node /scripts/jd_wish.js >> /scripts/logs/jd_wish.log 2>&1
-# 8月超级粉丝互动
-9 11,17 * * * node /scripts/jd_wxFans.js >> /scripts/logs/jd_wxFans.log 2>&1
-36 12,18 * * * node /scripts/jd_wxFans_aug2.js >> /scripts/logs/jd_wxFans_aug2.log 2>&1
-49 12,20 * * * node /scripts/jd_wxFans_sk2.js >> /scripts/logs/jd_wxFans_sk2.log 2>&1
 
 ##############长期活动##############
 # 签到
