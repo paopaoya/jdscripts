@@ -135,5 +135,3 @@
 8 8 * * * node /scripts/jd_jxqd.js >> /scripts/logs/jd_jxqd.log 2>&1
 # 柠檬伊利养牛
 5 10 * * * node /scripts/jd_ylyn.js >> /scripts/logs/jd_ylyn.log 2>&1
-# 京喜财富岛提现
-59 11,12,23 * * * node /scripts/jd_cfdtx.js >> /scripts/logs/jd_cfdtx.log 2>&1
