@@ -1579,16 +1579,16 @@ function jsonParse(str) {
   }
 }
 //==========================以下是给作者助力 免费拿,省钱大赢家等活动======================
-//async function helpAuthor() {
- // await barGain();//免费拿
-  //await bigWinner();//省钱大赢家
-//}
+async function helpAuthor() {
+  await barGain();//免费拿
+  await bigWinner();//省钱大赢家
+}
 async function barGain() {
-  let res = await getAuthorShareCode2('https://raw.githubusercontent.com/Aaron-lv/updateTeam/master/shareCodes/j_barGain.json')
+  let res = await getAuthorShareCode2('https://raw.githubusercontent.com/Aaron-lv/updateTeam/master/shareCodes/jd_barGain.json')
   if (!res) {
-    $.http.get({url: 'https://purge.jsdelivr.net/gh/Aaron-lv/updateTeam@master/shareCodes/j_barGain.json'}).then((resp) => {}).catch((e) => $.log('刷新CDN异常', e));
+    $.http.get({url: 'https://purge.jsdelivr.net/gh/Aaron-lv/updateTeam@master/shareCodes/jd_barGain.json'}).then((resp) => {}).catch((e) => $.log('刷新CDN异常', e));
     await $.wait(1000)
-    res = await getAuthorShareCode2('https://cdn.jsdelivr.net/gh/Aaron-lv/updateTeam@master/shareCodes/j_barGain.json')
+    res = await getAuthorShareCode2('https://cdn.jsdelivr.net/gh/Aaron-lv/updateTeam@master/shareCodes/jd_barGain.json')
   }
   $.inBargaining = [...(res && res['inBargaining'] || [])]
   $.inBargaining = getRandomArrayElements($.inBargaining, $.inBargaining.length > 3 ? 6 : $.inBargaining.length);
@@ -1615,11 +1615,11 @@ async function barGain() {
 }
 
 async function bigWinner() {
-  let res = await getAuthorShareCode2('https://raw.githubusercontent.com/Aaron-lv/updateTeam/master/shareCodes/igWinner.json')
+  let res = await getAuthorShareCode2('https://raw.githubusercontent.com/Aaron-lv/updateTeam/master/shareCode/bigWinner.json')
   if (!res) {
-    $.http.get({url: 'https://purge.jsdelivr.net/gh/Aaron-lv/updateTeam@master/shareCodes/igWinner.json'}).then((resp) => {}).catch((e) => $.log('刷新CDN异常', e));
+    $.http.get({url: 'https://purge.jsdelivr.net/gh/Aaron-lv/updateTeam@master/shareCode/bigWinner.json'}).then((resp) => {}).catch((e) => $.log('刷新CDN异常', e));
     await $.wait(1000)
-    res = await getAuthorShareCode2('https://cdn.jsdelivr.net/gh/Aaron-lv/updateTeam@master/shareCodes/igWinner.json')
+    res = await getAuthorShareCode2('https://cdn.jsdelivr.net/gh/Aaron-lv/updateTeam@master/shareCode/bigWinner.json')
   }
   $.codeList = getRandomArrayElements([...(res || [])], [...(res || [])].length);
   for (let vo of $.codeList) {
