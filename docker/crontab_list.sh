@@ -129,9 +129,9 @@
 10 0-21/3 * * * node /scripts/jd_joy_steal.js >> /scripts/logs/jd_joy_steal.log 2>&1
 # 宠汪汪邀请助力
 10 11,13,15 * * * node /scripts/jd_joy_run.js >> /scripts/logs/jd_joy_run.log 2>&1
-# 宠汪汪20兑换
-1 16 * * * node /scripts/jd_akreward.js >> /scripts/logs/jd_akreward.log 2>&1
 # 京喜签到
 8 8 * * * node /scripts/jd_jxqd.js >> /scripts/logs/jd_jxqd.log 2>&1
 # 柠檬伊利养牛
 5 10 * * * node /scripts/jd_ylyn.js >> /scripts/logs/jd_ylyn.log 2>&1
+# 领券中心签到
+11 1 * * * node /scripts/jd_ccSign.js >> /scripts/logs/jd_ccSign.log 2>&1
