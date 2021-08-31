@@ -22,6 +22,8 @@
 33 0,1-23/3 * * * node /scripts/jd_mohe.js >> /scripts/logs/jd_mohe.log 2>&1
 # 超级直播间红包雨(活动时间不定期，出现异常提示请忽略。红包雨期间会正常)
 1,31 0-23/1 * * * node /scripts/jd_live_redrain.js >> /scripts/logs/jd_live_redrain.log 2>&1
+# 省钱大赢家翻翻乐(7.15-8.15)
+36 6-23 * * * node /scripts/jd_big_winner.js >> /scripts/logs/jd_big_winner.log 2>&1
 ##############长期活动##############
 # 签到
 7 0,9 * * * node /scripts/jd_bean_sign.js >> /scripts/logs/jd_bean_sign.log 2>&1
